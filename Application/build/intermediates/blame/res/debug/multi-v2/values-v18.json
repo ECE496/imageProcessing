@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "/home/bnathan04/Documents/AndroidStudioProjects/android-Camera2Basic/Application/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v18/values-v18.xml",
+            "map": [
+                {
+                    "source": "/home/bnathan04/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/d5a8b69109b19f0a6f55b8b0641b0e16/res/values-v18/values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}

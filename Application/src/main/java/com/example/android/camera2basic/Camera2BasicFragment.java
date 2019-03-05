@@ -22,11 +22,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -244,6 +246,10 @@ public class Camera2BasicFragment extends Fragment
         @Override
         public void onImageAvailable(ImageReader reader) {
             mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
+
+            Intent myIntent = new Intent(getActivity(), ResultsActivity.class);
+            startActivity(myIntent);
+
         }
 
     };
@@ -498,7 +504,7 @@ public class Camera2BasicFragment extends Fragment
 
                 // We don't use a front facing camera in this sample.
                 Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
+                if (facing != null && facing != CameraCharacteristics.LENS_FACING_FRONT) {
                     continue;
                 }
 
@@ -773,17 +779,20 @@ public class Camera2BasicFragment extends Fragment
      * Lock the focus as the first step for a still image capture.
      */
     private void lockFocus() {
-        try {
+
             // This is how to tell the camera to lock focus.
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER,
                     CameraMetadata.CONTROL_AF_TRIGGER_START);
             // Tell #mCaptureCallback to wait for the lock.
             mState = STATE_WAITING_LOCK;
-            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
-                    mBackgroundHandler);
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
-        }
+//            mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback,
+//                    mBackgroundHandler);
+
+            captureStillPicture();
+
+//        } catch (CameraAccessException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
@@ -827,6 +836,8 @@ public class Camera2BasicFragment extends Fragment
             // Orientation
             int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, getOrientation(rotation));
+//            Rect zoomCrop = new Rect (0, 0, 1000, 1000);
+//            captureBuilder.set(CaptureRequest.SCALER_CROP_REGION, zoomCrop);
 
             CameraCaptureSession.CaptureCallback CaptureCallback
                     = new CameraCaptureSession.CaptureCallback() {
@@ -889,6 +900,7 @@ public class Camera2BasicFragment extends Fragment
         switch (view.getId()) {
             case R.id.picture: {
                 takePicture();
+
                 break;
             }
             case R.id.info: {
@@ -939,6 +951,8 @@ public class Camera2BasicFragment extends Fragment
             try {
                 output = new FileOutputStream(mFile);
                 output.write(bytes);
+
+
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
