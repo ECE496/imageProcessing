@@ -92,7 +92,10 @@ public class Camera2BasicFragment extends Fragment
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
-    private Interpreter tflite;
+    private static Interpreter tflite;
+    private Bitmap savedBmp;
+
+
 
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -275,25 +278,25 @@ public class Camera2BasicFragment extends Fragment
 
             mBackgroundHandler.post(new ImageSaver(myImage, mFile));
 
-            ByteBuffer buffer = myImage.getPlanes()[0].getBuffer();
-            byte[] bytes = new byte[buffer.remaining()];
-            buffer.get(bytes);
-            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-
-            int newWidth = myImage.getWidth() > myImage.getHeight() ? myImage.getHeight() : myImage.getWidth();
-            int newHeight = myImage.getHeight() > myImage.getWidth() ? myImage.getWidth() : myImage.getHeight();
-
-            Bitmap resizedbitmap1 = Bitmap.createBitmap(bmp, 0,0,newWidth, newHeight);
-
-            Bitmap scaledBitmap = Bitmap.createScaledBitmap(resizedbitmap1, 200, 200, false);
-            InputStream is = null;
-            try {
-                is = getActivity().getAssets().open("face.jpg");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            bmp = BitmapFactory.decodeStream(is);
-            float[][] probablities = doInference(bmp);
+//            ByteBuffer buffer = myImage.getPlanes()[0].getBuffer();
+//            byte[] bytes = new byte[buffer.remaining()];
+//            buffer.get(bytes);
+//            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+//
+//            int newWidth = myImage.getWidth() > myImage.getHeight() ? myImage.getHeight() : myImage.getWidth();
+//            int newHeight = myImage.getHeight() > myImage.getWidth() ? myImage.getWidth() : myImage.getHeight();
+//
+//            Bitmap resizedbitmap1 = Bitmap.createBitmap(bmp, 0,0,newWidth, newHeight);
+//
+//            Bitmap scaledBitmap = Bitmap.createScaledBitmap(resizedbitmap1, 200, 200, false);
+//            InputStream is = null;
+//            try {
+//                is = getActivity().getAssets().open("face.jpg");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            bmp = BitmapFactory.decodeStream(is);
+//            float[][] probablities = doInference(mBitmap);
 
             Intent myIntent = new Intent(getActivity(), ResultsActivity.class);
             startActivity(myIntent);
@@ -471,6 +474,23 @@ public class Camera2BasicFragment extends Fragment
     public static Camera2BasicFragment newInstance() {
         return new Camera2BasicFragment();
     }
+
+//    @Override
+//    public void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+////        setContentView(R.layout.activity_main);
+//        try {
+//            tflite = new Interpreter(loadModelFile());
+//            InputStream is = getActivity().getAssets().open("face.jpg");
+//            savedBmp = BitmapFactory.decodeStream(is);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        doInference(savedBmp);
+//
+//    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -1009,7 +1029,10 @@ public class Camera2BasicFragment extends Fragment
             Bitmap resizedbitmap1 = Bitmap.createBitmap(bmp, 0,0,newWidth, newHeight);
 
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(resizedbitmap1, 200, 200, false);
-//            float[][] probablities = doInference(scaledBitmap);
+
+
+
+            float[][] probablities = doInference(scaledBitmap);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -1126,7 +1149,7 @@ public class Camera2BasicFragment extends Fragment
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
     }
 
-    private float[][] doInference(Bitmap bmp){
+    private static float[][] doInference(Bitmap bmp){
         float [][][][] img = new float[1][200][200][3];
         float [][] output = new float[1][7];
         for (int i = 0; i < 200; i++){
@@ -1140,5 +1163,7 @@ public class Camera2BasicFragment extends Fragment
         tflite.run(img, output);
         return output;
     }
+
+
 
 }
