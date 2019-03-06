@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.AssetFileDescriptor;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -63,11 +64,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import org.tensorflow.lite.Interpreter;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -85,6 +92,7 @@ public class Camera2BasicFragment extends Fragment
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
+    private Interpreter tflite;
 
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -252,7 +260,11 @@ public class Camera2BasicFragment extends Fragment
 
         @Override
         public void onImageAvailable(ImageReader reader) {
-
+            try {
+                tflite = new Interpreter(loadModelFile());
+            }  catch (Exception e){
+                e.printStackTrace();
+            }
             Image myImage = reader.acquireNextImage();
 
 //            int newWidth = myImage.getWidth() > myImage.getHeight() ? myImage.getHeight() : myImage.getWidth();
@@ -262,6 +274,26 @@ public class Camera2BasicFragment extends Fragment
 //            myImage.setCropRect(newCropRect);
 
             mBackgroundHandler.post(new ImageSaver(myImage, mFile));
+
+            ByteBuffer buffer = myImage.getPlanes()[0].getBuffer();
+            byte[] bytes = new byte[buffer.remaining()];
+            buffer.get(bytes);
+            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+            int newWidth = myImage.getWidth() > myImage.getHeight() ? myImage.getHeight() : myImage.getWidth();
+            int newHeight = myImage.getHeight() > myImage.getWidth() ? myImage.getWidth() : myImage.getHeight();
+
+            Bitmap resizedbitmap1 = Bitmap.createBitmap(bmp, 0,0,newWidth, newHeight);
+
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(resizedbitmap1, 200, 200, false);
+            InputStream is = null;
+            try {
+                is = getActivity().getAssets().open("face.jpg");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            bmp = BitmapFactory.decodeStream(is);
+            float[][] probablities = doInference(bmp);
 
             Intent myIntent = new Intent(getActivity(), ResultsActivity.class);
             startActivity(myIntent);
@@ -977,13 +1009,14 @@ public class Camera2BasicFragment extends Fragment
             Bitmap resizedbitmap1 = Bitmap.createBitmap(bmp, 0,0,newWidth, newHeight);
 
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(resizedbitmap1, 200, 200, false);
-
+//            float[][] probablities = doInference(scaledBitmap);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+
             byte[] byteArray = stream.toByteArray();
             scaledBitmap.recycle();
-//            Bitmap processedImage = processImage(bytes);
+
             FileOutputStream output = null;
             try {
                 output = new FileOutputStream(mFile);
@@ -1082,6 +1115,30 @@ public class Camera2BasicFragment extends Fragment
                             })
                     .create();
         }
+    }
+
+    private MappedByteBuffer loadModelFile() throws IOException {
+        AssetFileDescriptor fileDescriptor = getActivity().getAssets().openFd("model.tflite");
+        FileInputStream inputStream = new FileInputStream(fileDescriptor.getFileDescriptor());
+        FileChannel fileChannel = inputStream.getChannel();
+        long startOffset = fileDescriptor.getStartOffset();
+        long declaredLength = fileDescriptor.getDeclaredLength();
+        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
+    }
+
+    private float[][] doInference(Bitmap bmp){
+        float [][][][] img = new float[1][200][200][3];
+        float [][] output = new float[1][7];
+        for (int i = 0; i < 200; i++){
+            for (int j = 0; j < 200; j++){
+                int p = bmp.getPixel(j, i);
+                img[0][i][j][0] = ((p >> 16) & 0xff) / (float)255;
+                img[0][i][j][1] = ((p >> 8) & 0xff) / (float)255;
+                img[0][i][j][2] = (p & 0xff) / (float)255;
+            }
+        }
+        tflite.run(img, output);
+        return output;
     }
 
 }
