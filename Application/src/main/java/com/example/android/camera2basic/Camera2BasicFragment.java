@@ -975,10 +975,14 @@ public class Camera2BasicFragment extends Fragment
             int newHeight = mImage.getHeight() > mImage.getWidth() ? mImage.getWidth() : mImage.getHeight();
 
             Bitmap resizedbitmap1 = Bitmap.createBitmap(bmp, 0,0,newWidth, newHeight);
+
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(resizedbitmap1, 200, 200, false);
+
+
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            resizedbitmap1.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             byte[] byteArray = stream.toByteArray();
-            resizedbitmap1.recycle();
+            scaledBitmap.recycle();
 //            Bitmap processedImage = processImage(bytes);
             FileOutputStream output = null;
             try {
