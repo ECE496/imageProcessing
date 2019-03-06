@@ -40,8 +40,23 @@ public class ResultsActivity extends AppCompatActivity {
 
         List<PieEntry> value = new ArrayList<>();
 
-        value.add(new PieEntry(90f, "Happy"));
-        value.add(new PieEntry(10f, "Sad"));
+        Bundle extras = getIntent().getExtras();
+
+        float neutral = extras.getFloat("neutral");
+        float happy = extras.getFloat("happy");
+        float sad = extras.getFloat("sad");
+        float surprise = extras.getFloat("surprise");
+        float fear = extras.getFloat("fear");
+        float disgust = extras.getFloat("disgust");
+        float anger = extras.getFloat("angry");
+
+        value.add(new PieEntry(neutral, "Neutral"));
+        value.add(new PieEntry(happy, "Happy"));
+        value.add(new PieEntry(sad, "Sad"));
+        value.add(new PieEntry(surprise, "Surprise"));
+        value.add(new PieEntry(fear, "Fear"));
+        value.add(new PieEntry(disgust, "Disgust"));
+        value.add(new PieEntry(anger, "Anger"));
 
         PieDataSet pieDataSet = new PieDataSet(value, "Emotion Distribution");
 

@@ -93,7 +93,7 @@ public class Camera2BasicFragment extends Fragment
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
     private static Interpreter tflite;
-    private Bitmap savedBmp;
+    private static float[][] prediction = new float[1][7];
 
 
 
@@ -299,6 +299,14 @@ public class Camera2BasicFragment extends Fragment
 //            float[][] probablities = doInference(mBitmap);
 
             Intent myIntent = new Intent(getActivity(), ResultsActivity.class);
+            myIntent.putExtra("neutral", prediction[0]);
+            myIntent.putExtra("happy", prediction[1]);
+            myIntent.putExtra("sad", prediction[2]);
+            myIntent.putExtra("surprise", prediction[3]);
+            myIntent.putExtra("fear", prediction[4]);
+            myIntent.putExtra("disgust", prediction[5]);
+            myIntent.putExtra("angry", prediction[6]);
+
             startActivity(myIntent);
 
         }
