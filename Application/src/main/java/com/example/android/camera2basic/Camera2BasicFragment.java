@@ -25,6 +25,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.Matrix;
 import android.graphics.Point;
@@ -61,6 +63,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -139,11 +142,15 @@ public class Camera2BasicFragment extends Fragment
 
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture texture, int width, int height) {
+//            width = height > width ? width : height;
+//            height = height > width ? width : height;
             openCamera(width, height);
         }
 
         @Override
         public void onSurfaceTextureSizeChanged(SurfaceTexture texture, int width, int height) {
+//            width = height > width ? width : height;
+//            height = height > width ? width : height;
             configureTransform(width, height);
         }
 
@@ -245,7 +252,16 @@ public class Camera2BasicFragment extends Fragment
 
         @Override
         public void onImageAvailable(ImageReader reader) {
-            mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), mFile));
+
+            Image myImage = reader.acquireNextImage();
+
+//            int newWidth = myImage.getWidth() > myImage.getHeight() ? myImage.getHeight() : myImage.getWidth();
+//            int newHeight = myImage.getHeight() > myImage.getWidth() ? myImage.getWidth() : myImage.getHeight();
+
+//            Rect newCropRect = new Rect(0, 0, 20, 20);
+//            myImage.setCropRect(newCropRect);
+
+            mBackgroundHandler.post(new ImageSaver(myImage, mFile));
 
             Intent myIntent = new Intent(getActivity(), ResultsActivity.class);
             startActivity(myIntent);
@@ -675,6 +691,9 @@ public class Camera2BasicFragment extends Fragment
         }
     }
 
+
+
+
     /**
      * Creates a new {@link CameraCaptureSession} for camera preview.
      */
@@ -709,6 +728,7 @@ public class Camera2BasicFragment extends Fragment
                             mCaptureSession = cameraCaptureSession;
                             try {
                                 // Auto focus should be continuous for camera preview.
+                                //  mZooom = getZoomRect();
                                 mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
                                         CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
                                 // Flash is automatically enabled when necessary.
@@ -926,6 +946,8 @@ public class Camera2BasicFragment extends Fragment
     /**
      * Saves a JPEG {@link Image} into the specified {@link File}.
      */
+
+
     private static class ImageSaver implements Runnable {
 
         /**
@@ -947,10 +969,21 @@ public class Camera2BasicFragment extends Fragment
             ByteBuffer buffer = mImage.getPlanes()[0].getBuffer();
             byte[] bytes = new byte[buffer.remaining()];
             buffer.get(bytes);
+            Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+            int newWidth = mImage.getWidth() > mImage.getHeight() ? mImage.getHeight() : mImage.getWidth();
+            int newHeight = mImage.getHeight() > mImage.getWidth() ? mImage.getWidth() : mImage.getHeight();
+
+            Bitmap resizedbitmap1 = Bitmap.createBitmap(bmp, 0,0,newWidth, newHeight);
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            resizedbitmap1.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+            resizedbitmap1.recycle();
+//            Bitmap processedImage = processImage(bytes);
             FileOutputStream output = null;
             try {
                 output = new FileOutputStream(mFile);
-                output.write(bytes);
+                output.write(byteArray);
 
 
             } catch (IOException e) {
