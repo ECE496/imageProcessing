@@ -93,7 +93,7 @@ public class Camera2BasicFragment extends Fragment
     private static final int REQUEST_CAMERA_PERMISSION = 1;
     private static final String FRAGMENT_DIALOG = "dialog";
     private static Interpreter tflite;
-    private static float[][] prediction = new float[1][7];
+    private static float[][] prediction = null;
 
 
 
@@ -153,15 +153,11 @@ public class Camera2BasicFragment extends Fragment
 
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture texture, int width, int height) {
-//            width = height > width ? width : height;
-//            height = height > width ? width : height;
             openCamera(width, height);
         }
 
         @Override
         public void onSurfaceTextureSizeChanged(SurfaceTexture texture, int width, int height) {
-//            width = height > width ? width : height;
-//            height = height > width ? width : height;
             configureTransform(width, height);
         }
 
@@ -268,13 +264,9 @@ public class Camera2BasicFragment extends Fragment
             }  catch (Exception e){
                 e.printStackTrace();
             }
+
             Image myImage = reader.acquireNextImage();
 
-//            int newWidth = myImage.getWidth() > myImage.getHeight() ? myImage.getHeight() : myImage.getWidth();
-//            int newHeight = myImage.getHeight() > myImage.getWidth() ? myImage.getWidth() : myImage.getHeight();
-
-//            Rect newCropRect = new Rect(0, 0, 20, 20);
-//            myImage.setCropRect(newCropRect);
 
             mBackgroundHandler.post(new ImageSaver(myImage, mFile));
 
@@ -298,16 +290,37 @@ public class Camera2BasicFragment extends Fragment
 //            bmp = BitmapFactory.decodeStream(is);
 //            float[][] probablities = doInference(mBitmap);
 
-            Intent myIntent = new Intent(getActivity(), ResultsActivity.class);
-            myIntent.putExtra("neutral", prediction[0]);
-            myIntent.putExtra("happy", prediction[1]);
-            myIntent.putExtra("sad", prediction[2]);
-            myIntent.putExtra("surprise", prediction[3]);
-            myIntent.putExtra("fear", prediction[4]);
-            myIntent.putExtra("disgust", prediction[5]);
-            myIntent.putExtra("angry", prediction[6]);
+            if (prediction != null) {
+                Intent myIntent = new Intent(getActivity(), ResultsActivity.class);
 
-            startActivity(myIntent);
+
+                float neutral = prediction[0][0];
+                float happy = prediction[0][1];
+                float sad = prediction[0][2];
+                float surprise = prediction[0][3];
+                float fear = prediction[0][4];
+                float disgust = prediction[0][5];
+                float angry = prediction[0][6];
+
+                myIntent.putExtra("neutral", neutral);
+                myIntent.putExtra("happy", happy);
+                myIntent.putExtra("sad", sad);
+                myIntent.putExtra("surprise", surprise);
+                myIntent.putExtra("fear", fear);
+                myIntent.putExtra("disgust", disgust);
+                myIntent.putExtra("angry", angry);
+                startActivity(myIntent);
+            }
+
+
+//            myIntent.putExtra("neutral", 0.1f);
+//            myIntent.putExtra("happy", 0.1f);
+//            myIntent.putExtra("sad", 0.1f);
+//            myIntent.putExtra("surprise", 0.2f);
+//            myIntent.putExtra("fear", 0.1f);
+//            myIntent.putExtra("disgust", 0.2f);
+//            myIntent.putExtra("angry", 0.2f);
+
 
         }
 
@@ -788,7 +801,6 @@ public class Camera2BasicFragment extends Fragment
                             mCaptureSession = cameraCaptureSession;
                             try {
                                 // Auto focus should be continuous for camera preview.
-                                //  mZooom = getZoomRect();
                                 mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_MODE,
                                         CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
                                 // Flash is automatically enabled when necessary.
@@ -916,8 +928,6 @@ public class Camera2BasicFragment extends Fragment
             // Orientation
             int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, getOrientation(rotation));
-//            Rect zoomCrop = new Rect (0, 0, 1000, 1000);
-//            captureBuilder.set(CaptureRequest.SCALER_CROP_REGION, zoomCrop);
 
             CameraCaptureSession.CaptureCallback CaptureCallback
                     = new CameraCaptureSession.CaptureCallback() {
@@ -1040,7 +1050,8 @@ public class Camera2BasicFragment extends Fragment
 
 
 
-            float[][] probablities = doInference(scaledBitmap);
+//            float[][] probabilities = doInference(scaledBitmap);
+            prediction = doInference(scaledBitmap);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
