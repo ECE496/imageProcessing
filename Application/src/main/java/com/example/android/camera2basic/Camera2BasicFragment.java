@@ -95,6 +95,9 @@ public class Camera2BasicFragment extends Fragment
     private static Interpreter tflite;
     private static float[][] prediction = null;
 
+    private static InputStream mIs;
+    private static String alleniverson;
+
 
 
     static {
@@ -267,7 +270,14 @@ public class Camera2BasicFragment extends Fragment
 
             Image myImage = reader.acquireNextImage();
 
+            String fileName = "alex_happy.jpg";
 
+            try {
+                mIs = getActivity().getAssets().open(fileName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+//            savedBmp = BitmapFactory.decodeStream(is);
             mBackgroundHandler.post(new ImageSaver(myImage, mFile));
 
 //            ByteBuffer buffer = myImage.getPlanes()[0].getBuffer();
@@ -289,6 +299,8 @@ public class Camera2BasicFragment extends Fragment
 //            }
 //            bmp = BitmapFactory.decodeStream(is);
 //            float[][] probablities = doInference(mBitmap);
+
+            showToast(alleniverson);
 
             if (prediction != null) {
                 Intent myIntent = new Intent(getActivity(), ResultsActivity.class);
@@ -1048,10 +1060,11 @@ public class Camera2BasicFragment extends Fragment
 
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(resizedbitmap1, 200, 200, false);
 
-
+            Bitmap savedBitmap = BitmapFactory.decodeStream(mIs);
 
 //            float[][] probabilities = doInference(scaledBitmap);
-            prediction = doInference(scaledBitmap);
+//            prediction = doInference(scaledBitmap);
+            prediction = doInference(savedBitmap);
 
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
@@ -1174,11 +1187,16 @@ public class Camera2BasicFragment extends Fragment
         for (int i = 0; i < 200; i++){
             for (int j = 0; j < 200; j++){
                 int p = bmp.getPixel(j, i);
-                img[0][i][j][0] = ((p >> 16) & 0xff) / (float)255;
-                img[0][i][j][1] = ((p >> 8) & 0xff) / (float)255;
-                img[0][i][j][2] = (p & 0xff) / (float)255;
+                img[0][i][j][2] = ((p >> 16) & 0xff); /// (float)255;
+                img[0][i][j][1] = ((p >> 8) & 0xff);// / (float)255;
+                img[0][i][j][0] = (p & 0xff);// / (float)255;
+
+                if (i == 50 && j == 50) {
+                    alleniverson = Float.toString(img[0][i][j][2]) + " " + Float.toString(img[0][i][j][1]) + " " + Float.toString(img[0][i][j][0]);
+                }
             }
         }
+
         tflite.run(img, output);
         return output;
     }
