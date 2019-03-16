@@ -1,48 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/bnathan04/Documents/AndroidStudioProjects/android-Camera2Basic/Application/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v21/values-v21.xml",
+            "outputFile": "C:\\Users\\Alexander\\imageProcessing\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v21\\values-v21.xml",
             "map": [
                 {
-                    "source": "/home/bnathan04/.gradle/caches/transforms-1/files-1.1/design-27.1.1.aar/f971518862045d448b7340eb0486d5de/res/values-v21/values-v21.xml",
-                    "from": {
-                        "startLines": "2,5",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,266",
-                        "endLines": "4,5",
-                        "endColumns": "12,96",
-                        "endOffsets": "261,358"
-                    },
-                    "to": {
-                        "startLines": "164,228",
-                        "startColumns": "4,4",
-                        "startOffsets": "12574,17124",
-                        "endLines": "166,228",
-                        "endColumns": "12,96",
-                        "endOffsets": "12780,17216"
-                    }
-                },
-                {
-                    "source": "/home/bnathan04/.gradle/caches/transforms-1/files-1.1/support-media-compat-27.1.1.aar/ed471c1284c53971c8ea6725eb8b387a/res/values-v21/values-v21.xml",
-                    "from": {
-                        "startLines": "2,5,8,11",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "55,223,386,554",
-                        "endLines": "4,7,10,13",
-                        "endColumns": "12,12,12,12",
-                        "endOffsets": "218,381,549,716"
-                    },
-                    "to": {
-                        "startLines": "269,272,276,280",
-                        "startColumns": "4,4,4,4",
-                        "startOffsets": "19812,19980,20269,20565",
-                        "endLines": "271,274,278,282",
-                        "endColumns": "12,12,12,12",
-                        "endOffsets": "19975,20138,20432,20727"
-                    }
-                },
-                {
-                    "source": "/home/bnathan04/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/4ba71e6dadb3109b9b01209d9c201abd/res/values-v21/values-v21.xml",
+                    "source": "C:\\Users\\Alexander\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\e7db63377e3b742fee32da6b1875bd5f\\res\\values-v21\\values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,13",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4",
@@ -61,7 +23,45 @@
                     }
                 },
                 {
-                    "source": "/home/bnathan04/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/d5a8b69109b19f0a6f55b8b0641b0e16/res/values-v21/values-v21.xml",
+                    "source": "C:\\Users\\Alexander\\imageProcessing\\Application\\src\\main\\res\\values-v21\\base-template-styles.xml",
+                    "from": {
+                        "startLines": "20",
+                        "startColumns": "4",
+                        "startOffsets": "697",
+                        "endLines": "21",
+                        "endColumns": "12",
+                        "endOffsets": "774"
+                    },
+                    "to": {
+                        "startLines": "283",
+                        "startColumns": "4",
+                        "startOffsets": "20732",
+                        "endLines": "284",
+                        "endColumns": "12",
+                        "endOffsets": "20808"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Alexander\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\e74474d2a8dddb65464a6775e3541e2d\\res\\values-v21\\values-v21.xml",
+                    "from": {
+                        "startLines": "2,5,8,11",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,223,386,554",
+                        "endLines": "4,7,10,13",
+                        "endColumns": "12,12,12,12",
+                        "endOffsets": "218,381,549,716"
+                    },
+                    "to": {
+                        "startLines": "269,272,276,280",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "19812,19980,20269,20565",
+                        "endLines": "271,274,278,282",
+                        "endColumns": "12,12,12,12",
+                        "endOffsets": "19975,20138,20432,20727"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Alexander\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\d2c9ae984748a27c48a24cb254adc23b\\res\\values-v21\\values-v21.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,17,19,20,21,22,24,26,27,28,29,30,32,34,36,38,40,42,43,48,50,52,53,54,56,58,59,60,61,62,63,107,110,154,157,160,162,164,166,169,171,174,175,176,179,180,181,182,183,184,187,188,190,192,194,196,200,202,203,204,205,207,211,213,215,216,217,218,219,221,222,223,233,234,235,247",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -80,22 +80,22 @@
                     }
                 },
                 {
-                    "source": "/home/bnathan04/Documents/AndroidStudioProjects/android-Camera2Basic/Application/src/main/res/values-v21/base-template-styles.xml",
+                    "source": "C:\\Users\\Alexander\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\1079c8b441351f2bb0494fd6c7f5fa95\\res\\values-v21\\values-v21.xml",
                     "from": {
-                        "startLines": "20",
-                        "startColumns": "4",
-                        "startOffsets": "677",
-                        "endLines": "21",
-                        "endColumns": "12",
-                        "endOffsets": "753"
+                        "startLines": "2,5",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,266",
+                        "endLines": "4,5",
+                        "endColumns": "12,96",
+                        "endOffsets": "261,358"
                     },
                     "to": {
-                        "startLines": "283",
-                        "startColumns": "4",
-                        "startOffsets": "20732",
-                        "endLines": "284",
-                        "endColumns": "12",
-                        "endOffsets": "20808"
+                        "startLines": "164,228",
+                        "startColumns": "4,4",
+                        "startOffsets": "12574,17124",
+                        "endLines": "166,228",
+                        "endColumns": "12,96",
+                        "endOffsets": "12780,17216"
                     }
                 }
             ]

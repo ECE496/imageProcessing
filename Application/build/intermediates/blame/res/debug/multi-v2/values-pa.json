@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/bnathan04/Documents/AndroidStudioProjects/android-Camera2Basic/Application/build/intermediates/incremental/mergeDebugResources/merged.dir/values-pa/values-pa.xml",
+            "outputFile": "C:\\Users\\Alexander\\imageProcessing\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-pa\\values-pa.xml",
             "map": [
                 {
-                    "source": "/home/bnathan04/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/4ba71e6dadb3109b9b01209d9c201abd/res/values-pa/values-pa.xml",
+                    "source": "C:\\Users\\Alexander\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\e7db63377e3b742fee32da6b1875bd5f\\res\\values-pa\\values-pa.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "/home/bnathan04/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/d5a8b69109b19f0a6f55b8b0641b0e16/res/values-pa/values-pa.xml",
+                    "source": "C:\\Users\\Alexander\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\d2c9ae984748a27c48a24cb254adc23b\\res\\values-pa\\values-pa.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

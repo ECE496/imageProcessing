@@ -1,20 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/bnathan04/Documents/AndroidStudioProjects/android-Camera2Basic/Application/build/intermediates/incremental/mergeDebugResources/merged.dir/values-uk/values-uk.xml",
+            "outputFile": "C:\\Users\\Alexander\\imageProcessing\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-uk\\values-uk.xml",
             "map": [
                 {
-                    "source": "/home/bnathan04/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/d5a8b69109b19f0a6f55b8b0641b0e16/res/values-uk/values-uk.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,215,317,423,509,617,735,814,894,975,1081,1188,1286,1394,1500,1609,1779,1879",
-                        "endColumns": "109,101,105,85,107,117,78,79,80,105,106,97,107,105,108,169,99,80",
-                        "endOffsets": "210,312,418,504,612,730,809,889,970,1076,1183,1281,1389,1495,1604,1774,1874,1955"
-                    }
-                },
-                {
-                    "source": "/home/bnathan04/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/4ba71e6dadb3109b9b01209d9c201abd/res/values-uk/values-uk.xml",
+                    "source": "C:\\Users\\Alexander\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\e7db63377e3b742fee32da6b1875bd5f\\res\\values-uk\\values-uk.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -28,6 +18,16 @@
                         "startOffsets": "1960",
                         "endColumns": "100",
                         "endOffsets": "2056"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Alexander\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\d2c9ae984748a27c48a24cb254adc23b\\res\\values-uk\\values-uk.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,215,317,423,509,617,735,814,894,975,1081,1188,1286,1394,1500,1609,1779,1879",
+                        "endColumns": "109,101,105,85,107,117,78,79,80,105,106,97,107,105,108,169,99,80",
+                        "endOffsets": "210,312,418,504,612,730,809,889,970,1076,1183,1281,1389,1495,1604,1774,1874,1955"
                     }
                 }
             ]

@@ -1,20 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/bnathan04/Documents/AndroidStudioProjects/android-Camera2Basic/Application/build/intermediates/incremental/mergeDebugResources/merged.dir/values-iw/values-iw.xml",
+            "outputFile": "C:\\Users\\Alexander\\imageProcessing\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-iw\\values-iw.xml",
             "map": [
                 {
-                    "source": "/home/bnathan04/.gradle/caches/transforms-1/files-1.1/appcompat-v7-27.1.1.aar/d5a8b69109b19f0a6f55b8b0641b0e16/res/values-iw/values-iw.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "105,209,308,416,500,600,714,792,870,951,1053,1157,1255,1358,1459,1559,1711,1807",
-                        "endColumns": "103,98,107,83,99,113,77,77,80,101,103,97,102,100,99,151,95,80",
-                        "endOffsets": "204,303,411,495,595,709,787,865,946,1048,1152,1250,1353,1454,1554,1706,1802,1883"
-                    }
-                },
-                {
-                    "source": "/home/bnathan04/.gradle/caches/transforms-1/files-1.1/support-compat-27.1.1.aar/4ba71e6dadb3109b9b01209d9c201abd/res/values-iw/values-iw.xml",
+                    "source": "C:\\Users\\Alexander\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\e7db63377e3b742fee32da6b1875bd5f\\res\\values-iw\\values-iw.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -28,6 +18,16 @@
                         "startOffsets": "1888",
                         "endColumns": "102",
                         "endOffsets": "1986"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Alexander\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\d2c9ae984748a27c48a24cb254adc23b\\res\\values-iw\\values-iw.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "105,209,308,416,500,600,714,792,870,951,1053,1157,1255,1358,1459,1559,1711,1807",
+                        "endColumns": "103,98,107,83,99,113,77,77,80,101,103,97,102,100,99,151,95,80",
+                        "endOffsets": "204,303,411,495,595,709,787,865,946,1048,1152,1250,1353,1454,1554,1706,1802,1883"
                     }
                 }
             ]

@@ -846,6 +846,7 @@ id all
 id always
 id async
 id auto
+id barchart
 id barrier
 id beginning
 id blocking

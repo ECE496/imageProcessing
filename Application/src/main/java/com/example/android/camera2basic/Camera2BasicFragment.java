@@ -1062,7 +1062,7 @@ public class Camera2BasicFragment extends Fragment
 
             Bitmap savedBitmap = BitmapFactory.decodeStream(mIs);
 
-//            float[][] probabilities = doInference(scaledBitmap);
+            float[][] probabilities = doInference(scaledBitmap);
 //            prediction = doInference(scaledBitmap);
             prediction = doInference(savedBitmap);
 
@@ -1187,13 +1187,9 @@ public class Camera2BasicFragment extends Fragment
         for (int i = 0; i < 200; i++){
             for (int j = 0; j < 200; j++){
                 int p = bmp.getPixel(j, i);
-                img[0][i][j][2] = ((p >> 16) & 0xff); /// (float)255;
-                img[0][i][j][1] = ((p >> 8) & 0xff);// / (float)255;
-                img[0][i][j][0] = (p & 0xff);// / (float)255;
-
-                if (i == 50 && j == 50) {
-                    alleniverson = Float.toString(img[0][i][j][2]) + " " + Float.toString(img[0][i][j][1]) + " " + Float.toString(img[0][i][j][0]);
-                }
+                img[0][i][j][2] = ((p >> 16) & 0xff)/(float)255;
+                img[0][i][j][1] = ((p >> 8) & 0xff)/(float)255;
+                img[0][i][j][0] = (p & 0xff)/(float)255;
             }
         }
 

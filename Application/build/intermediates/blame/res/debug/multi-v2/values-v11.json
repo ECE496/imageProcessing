@@ -1,16 +1,16 @@
 {
     "logs": [
         {
-            "outputFile": "/home/bnathan04/Documents/AndroidStudioProjects/android-Camera2Basic/Application/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v11/values-v11.xml",
+            "outputFile": "C:\\Users\\Alexander\\imageProcessing\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v11\\values-v11.xml",
             "map": [
                 {
-                    "source": "/home/bnathan04/Documents/AndroidStudioProjects/android-Camera2Basic/Application/src/main/res/values-v11/template-styles.xml",
+                    "source": "C:\\Users\\Alexander\\imageProcessing\\Application\\src\\main\\res\\values-v11\\template-styles.xml",
                     "from": {
                         "startLines": "19",
                         "startColumns": "4",
-                        "startOffsets": "650",
+                        "startOffsets": "669",
                         "endColumns": "65",
-                        "endOffsets": "711"
+                        "endOffsets": "730"
                     },
                     "to": {
                         "startLines": "2",
